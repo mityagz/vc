@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_vc" default="compile.module.vc">
+  <dirname property="module.vc.basedir" file="${ant.file.module_vc}"/>
+  
+  <property name="module.jdk.home.vc" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.vc" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.vc" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.vc" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+  
+  <property name="vc.output.dir" value="${module.vc.basedir}/out/production/vc"/>
+  <property name="vc.testoutput.dir" value="${module.vc.basedir}/out/test/vc"/>
+  
+  <path id="vc.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="vc.module.production.classpath">
+    <path refid="${module.jdk.classpath.vc}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="vc.runtime.production.module.classpath">
+    <pathelement location="${vc.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="vc.module.classpath">
+    <path refid="${module.jdk.classpath.vc}"/>
+    <pathelement location="${vc.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="vc.runtime.module.classpath">
+    <pathelement location="${vc.testoutput.dir}"/>
+    <pathelement location="${vc.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.vc">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.vc">
+    <patternset refid="excluded.from.module.vc"/>
+  </patternset>
+  
+  <path id="vc.module.sourcepath">
+    <dirset dir="${module.vc.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.vc" depends="compile.module.vc.production,compile.module.vc.tests" description="Compile module vc"/>
+  
+  <target name="compile.module.vc.production" depends="register.custom.compilers" description="Compile module vc; production classes">
+    <mkdir dir="${vc.output.dir}"/>
+    <javac2 destdir="${vc.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.vc}/javac">
+      <compilerarg line="${compiler.args.vc}"/>
+      <bootclasspath refid="vc.module.bootclasspath"/>
+      <classpath refid="vc.module.production.classpath"/>
+      <src refid="vc.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.vc"/>
+    </javac2>
+    
+    <copy todir="${vc.output.dir}">
+      <fileset dir="${module.vc.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.vc.tests" depends="register.custom.compilers,compile.module.vc.production" description="compile module vc; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.vc" description="cleanup module">
+    <delete dir="${vc.output.dir}"/>
+    <delete dir="${vc.testoutput.dir}"/>
+  </target>
+</project>

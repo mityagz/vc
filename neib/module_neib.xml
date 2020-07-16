@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_neib" default="compile.module.neib">
+  <dirname property="module.neib.basedir" file="${ant.file.module_neib}"/>
+  
+  <property name="module.jdk.home.neib" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.neib" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.neib" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.neib" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+  
+  <property name="neib.output.dir" value="${module.neib.basedir}/../out/production/neib"/>
+  <property name="neib.testoutput.dir" value="${module.neib.basedir}/../out/test/neib"/>
+  
+  <path id="neib.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="neib.module.production.classpath">
+    <path refid="${module.jdk.classpath.neib}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="neib.runtime.production.module.classpath">
+    <pathelement location="${neib.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="neib.module.classpath">
+    <path refid="${module.jdk.classpath.neib}"/>
+    <pathelement location="${neib.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  <path id="neib.runtime.module.classpath">
+    <pathelement location="${neib.testoutput.dir}"/>
+    <pathelement location="${neib.output.dir}"/>
+    <path refid="library.lib.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.neib">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.neib">
+    <patternset refid="excluded.from.module.neib"/>
+  </patternset>
+  
+  
+  <target name="compile.module.neib" depends="compile.module.neib.production,compile.module.neib.tests" description="Compile module neib"/>
+  
+  <target name="compile.module.neib.production" depends="register.custom.compilers" description="Compile module neib; production classes"/>
+  
+  <target name="compile.module.neib.tests" depends="register.custom.compilers,compile.module.neib.production" description="compile module neib; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.neib" description="cleanup module">
+    <delete dir="${neib.output.dir}"/>
+    <delete dir="${neib.testoutput.dir}"/>
+  </target>
+</project>
