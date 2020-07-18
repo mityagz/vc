@@ -31,7 +31,7 @@ public class adj {
 }
 
 */
-public class Adj {
+public class Adj  {
     private Bag<NDirectedEdge> []adj0;
     private NNode []adj1;
     private HashMap<String, NNode> adj2;
