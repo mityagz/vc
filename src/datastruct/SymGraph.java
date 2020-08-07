@@ -10,18 +10,33 @@ import java.util.Map;
  */
 public class SymGraph {
     private ST<String, Integer> st;
+    private ST<String,String> st1;
+    private ST<String,String> st2;
     private String[] keys;
     private NGraph G;
     private JuniperMX root;
 
-    public SymGraph(Adj adj) {
+
+    public String[] getKeys() { return keys; }
+    public ST<String, Integer> getSt() { return  st; }
+    public ST<String, String> getSt1() { return st1; }
+    public ST<String, String> getSt2() { return st2; }
+
+        public SymGraph(Adj adj) {
         st = new ST<String, Integer>();
+        st1 = new ST<String, String>();
+        st2 = new ST<String, String>();
         root = adj.getJ();
         int i = 0;
         for(String h : root.getRnp().keySet()) {
             //System.out.println(h + ":");
             if(!st.contains(h)) {
                 st.put(h, i++);
+                for (String lo : root.getRnp().get(h).keySet())
+                    if (lo != null && lo != "0.0.0.0" && root.getRnp().get(h).get(lo).getLo0() != null) {
+                        st1.put(lo, root.getRnp().get(h).get(lo).getLo0());
+                        st2.put(root.getRnp().get(h).get(lo).getLo0(), root.getRnp().get(h).get(lo).getSystemName());
+                    }
             }
         }
 

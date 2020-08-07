@@ -1,6 +1,7 @@
 package datastruct;
 
 import Models.JuniperMX;
+import db.WDB;
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.DirectedEdge;
 import lldp.DetectType;
@@ -74,7 +75,8 @@ public class Adj {
             System.exit(1);
         }
         Adj a = new Adj("10.229.0.0", cmd);
-        new SymGraph(a);
+        SymGraph sg = new SymGraph(a);
         new VisualG(a);
+        new WDB(a, sg);
     }
 }
