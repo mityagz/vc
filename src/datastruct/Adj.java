@@ -1,6 +1,7 @@
 package datastruct;
 
 import Models.JuniperMX;
+import db.RDB;
 import db.WDB;
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.DirectedEdge;
@@ -78,5 +79,6 @@ public class Adj {
         SymGraph sg = new SymGraph(a);
         new VisualG(a);
         new WDB(a, sg);
+        //new RDB(a);
     }
 }

@@ -129,7 +129,7 @@ public class WDB {
 
         try {
             st = connection_db.createStatement();
-            rs = st.executeQuery("select a.id, a.name, n0.hostname, n0.ip, i0.name, i1.name, n1.hostname, n1.ip from adjs a " +
+            String q = "select a.id, a.name, n0.hostname, n0.ip, i0.name, i1.name, n1.hostname, n1.ip from adjs a " +
                                  "join node n0 on a.node_id = n0.id " +
                                  "join node n1 on a.adj_node_id = n1.id " +
                                  "join interface i0 on a.interface_id_oif=i0.id " +
@@ -137,19 +137,22 @@ public class WDB {
                                  "where n0.ip = '" + node_id_lo0 +
                                  "' and n1.ip = '" + adj_node_id_lo0 +
                                  "' and i0.name = '" + int_oif +
-                                 "' and i1.name = '" + int_oif + "';");
+                                 "' and i1.name = '" + int_iif + "';";
+
+            rs = st.executeQuery(q);
 
             if(rs.next()) {
                 retId = rs.getInt(1);
                 if(retId != 0) {
-                    System.out.println("Node id found");
+                    //System.out.println("checkTable: Adj id was found: " + retId + ":" + q);
                 }
 
             } else {
-                System.out.println("Node id isn't found in adj table");
-                return retId;
+                //System.out.println("checkTable: Adj id wasn't found in adj table: " + retId + ":" + q);
             }
-
+            //System.out.println("checkTable2: " + node_id_lo0 + ":" + adj_node_id_lo0 + ":" + int_oif + ":" + int_iif);
+            rs.close();
+            st.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
