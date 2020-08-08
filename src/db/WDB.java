@@ -76,7 +76,7 @@ public class WDB {
         */
 
         for(String h : rnp.keySet()) {
-            System.out.println("checkDB: adj host : " + h);
+            //System.out.println("checkDB: adj host : " + h);
             for (String hh : rnp.get(h).keySet()) {
                 //IsExistAdj(int id, int node_id, int adj_node_id, int interface_id_oif, int interface_id_iif, String name)
                 //IsExistAdj(int node_id, int adj_node_id, String interface_id_oif, String interface_id_iif, String name)
@@ -88,7 +88,7 @@ public class WDB {
                 String interface_name_oif = rnp.get(h).get(hh).getIfO();
                 String interface_name_iif = rnp.get(h).get(hh).getIfI();
 
-                checkParam(node_ip_lo0, adj_ip_node_lo0, node_hostname, node_adj_hostname, interface_name_oif, interface_name_iif);
+                //checkParam(node_ip_lo0, adj_ip_node_lo0, node_hostname, node_adj_hostname, interface_name_oif, interface_name_iif);
 
 
                 if (CheckTables(node_ip_lo0, adj_ip_node_lo0, node_hostname, node_adj_hostname, interface_name_oif, interface_name_iif, "x") == -1) {
@@ -160,7 +160,7 @@ public class WDB {
     }
 
     private void insertAdj(String node_ip_lo0, String adj_ip_node_lo0, String node_hostname, String node_adj_hostname, String interface_name_oif, String interface_name_iif) {
-        System.out.println("Insert into Adj");
+        //System.out.println("Insert into Adj");
         Integer oif = getInterfaceId(node_ip_lo0, interface_name_oif);
         Integer iif = getInterfaceId(adj_ip_node_lo0, interface_name_iif);
         if(oif == -1 || iif == -1)
@@ -169,14 +169,15 @@ public class WDB {
         Integer adj_node_id = getNodeId(adj_ip_node_lo0);
         if(node_id == -1 || adj_node_id == -1)
             return;
-        System.out.println("insertAdj: " + node_id + ":" + adj_node_id + ":" + oif + ":" + iif);
+        //System.out.println("insertAdj: " + node_id + ":" + adj_node_id + ":" + oif + ":" + iif);
         try {
             int rs;
             st = connection_db.createStatement();
             rs = st.executeUpdate("insert into " +
                     "adjs(node_id, adj_node_id, interface_id_oif, interface_id_iif, name) " +
-                    "values (" + node_id + ", " + adj_node_id + ", " + oif + ", " + iif + ", 'router interconnect')");
-            System.out.println("Adj id was inserted, node " + node_id + " " + adj_node_id + " id is: x " + rs);
+                    "values (" + node_id + ", " + adj_node_id + ", " + oif + ", " + iif + ", '"
+                     + node_hostname + ":" + interface_name_oif + "<-->" + node_adj_hostname + ":" + interface_name_iif + "')");
+            //System.out.println("Adj id was inserted, node " + node_id + " " + adj_node_id + " id is: x " + rs);
             st.closeOnCompletion();
             st.close();
         } catch (Exception e) {
