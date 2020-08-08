@@ -186,7 +186,7 @@ public class WDB {
     }
 
     private void insertInterfaceId(String ip, String interface_name) {
-        System.out.println("Insert into ip:Interface: " + ip + " : " + interface_name);
+        //System.out.println("Insert into ip:Interface: " + ip + " : " + interface_name);
         int node_id = getNodeId(ip);
         if(node_id == -1)
             return;
@@ -196,7 +196,7 @@ public class WDB {
             rs = st.executeUpdate("insert into " +
                     "interface (node_id, name) " +
                     "values ('" + node_id + "' , '"+ interface_name + "');");
-            System.out.println("Interface id was inserted, node " + ip + " " + interface_name + " id is: x " + rs);
+            //System.out.println("Interface id was inserted, node " + ip + " " + interface_name + " id is: x " + rs);
             st.closeOnCompletion();
             st.close();
         } catch (Exception e) {
@@ -211,7 +211,7 @@ public class WDB {
             rs = st.executeUpdate("insert into " +
                     "node (type_id, hostname, ip) " +
                     "values (1 , '" + hostname + "' , '"+ ip + "');");
-            System.out.println("Node id was inserted, node " + hostname + " " + ip + " id is: x " + rs);
+            //System.out.println("Node id was inserted, node " + hostname + " " + ip + " id is: x " + rs);
             st.closeOnCompletion();
             st.close();
         } catch (Exception e) {
@@ -220,7 +220,7 @@ public class WDB {
     }
 
     private void insertTypeId(String type, String role, String name) {
-        System.out.println("Insert into type");
+        //System.out.println("Insert into type");
         String type_r =   "insert into " +
                         "type (type, role, name) " +
                         "values (" + type + ", '" + role + "' , '" +  name + "')";
@@ -245,35 +245,10 @@ public class WDB {
             if(rs.next()) {
                 retId = rs.getInt(1);
                 if(retId == 0) {
-                    System.out.println("Node id found");
+                    //System.out.println("Node id found");
                 }
-                /*
-                port_create = rs.getInt(1);
-                nport = rs.getInt(2);
-                bport = rs.getInt(3);
-                eport = rs.getInt(4);
-
-                if (port_create == 0) {
-                    for(int p = bport; p <= nport; p++){
-                        String port =   "INSERT INTO " +
-                                        "sw_ports (id_sw, ifindex, nport, service_id, state, monitor) " +
-                                        "VALUES (" + sw_id + ", " + p + " , " +  p + " ,  5, 0, 0)";
-                        insertPort += st.executeUpdate(port);
-                    }
-                    if(insertPort == nport){
-                        String port_created =   "UPDATE sw set port_created = 1 " +
-                                                "WHERE id = " + sw_id;
-                        st.executeUpdate(port_created);
-                        System.out.println("Ports " + insertPort + " is created");
-                    }else {
-                        System.out.println("insertPort don't equal nport: " + insertPort + " != " + nport);
-                    }
-                } else {
-                    //System.out.println("Ports already created");
-                }
-                */
             } else {
-                System.out.println("Node id isn't found in adj table");
+                //System.out.println("Node id isn't found in adj table");
                 return retId;
             }
 
@@ -295,10 +270,10 @@ public class WDB {
             if (rs.next()) {
                 retId = rs.getInt(1);
                 if (retId != 0) {
-                    System.out.println("getInterfaceId id was found, node " + node_lo + ":" + node_id + " id is: " + retId);
+                    //System.out.println("getInterfaceId id was found, node " + node_lo + ":" + node_id + " id is: " + retId);
                 }
             } else {
-                System.out.println("getInterfaceId id wasn't found, node " + node_lo + ":" + node_id + " id is: " + retId);
+                //System.out.println("getInterfaceId id wasn't found, node " + node_lo + ":" + node_id + " id is: " + retId);
             }
             rs.close();
             st.close();
@@ -317,10 +292,10 @@ public class WDB {
             if (rs.next()) {
                 retId = rs.getInt(1);
                 if (retId != 0) {
-                    System.out.println("getNodeId id was found, node " + node_lo + " id is: " + retId);
+                    //System.out.println("getNodeId id was found, node " + node_lo + " id is: " + retId);
                 }
             } else {
-                System.out.println("getNodeId id wasn't found, node " + node_lo + " id is: " + retId);
+                //System.out.println("getNodeId id wasn't found, node " + node_lo + " id is: " + retId);
             }
             rs.close();
             st.close();
@@ -342,10 +317,10 @@ public class WDB {
             if (rs.next()) {
                 retId = rs.getInt(1);
                 if (retId != 0) {
-                    System.out.println("IsExistInterface id was found, node " + node_lo + " id is: " + name + " : " + retId);
+                    //System.out.println("IsExistInterface id was found, node " + node_lo + " id is: " + name + " : " + retId);
                 }
             } else {
-                System.out.println("IsExistInterface id wasn't found, node " + node_lo + " id is: " + name + " : " + retId);
+                //System.out.println("IsExistInterface id wasn't found, node " + node_lo + " id is: " + name + " : " + retId);
             }
             rs.close();
             st.close();
@@ -364,10 +339,10 @@ public class WDB {
             if (rs.next()) {
                 retId = rs.getInt(1);
                 if (retId != 0) {
-                    System.out.println("Node id was found, node " + ip + " id is: " + hostname + " : " + retId);
+                    //System.out.println("Node id was found, node " + ip + " id is: " + hostname + " : " + retId);
                 }
             } else {
-                System.out.println("Node id wasn't found, node " + ip + " id is: " + hostname + " : " + retId);
+                //System.out.println("Node id wasn't found, node " + ip + " id is: " + hostname + " : " + retId);
             }
             rs.close();
             st.close();
