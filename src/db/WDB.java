@@ -85,8 +85,9 @@ public class WDB {
                 String adj_ip_node_lo0 = rnp.get(h).get(hh).getLo0();
                 String node_hostname = sg.getSt2().get(h);
                 String node_adj_hostname = rnp.get(h).get(hh).getSystemName();
-                String interface_name_oif = rnp.get(h).get(hh).getIfO();
-                String interface_name_iif = rnp.get(h).get(hh).getIfI();
+                // here is a bug
+                String interface_name_iif = rnp.get(h).get(hh).getIfO();
+                String interface_name_oif = rnp.get(h).get(hh).getIfI();
 
                 //checkParam(node_ip_lo0, adj_ip_node_lo0, node_hostname, node_adj_hostname, interface_name_oif, interface_name_iif);
 
