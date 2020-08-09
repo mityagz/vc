@@ -20,25 +20,30 @@ public class RDB {
     private ResultSet rs = null;
     private Adj adj;
     private SymGraph sg;
+    private String a[];
 
     public RDB(Adj adj) {
         this.adj = adj;
         this.sg = sg;
         connDB(db, user_db, password_db);
-        //IsExistAdj(1, 1, 1, 1, 1, "x");
+        CheckTables();
     }
+
+    public String [] getA() {
+        return a;
+    }
+
 
     private int CheckTables() {
         Integer retId = -1;
-        /*
-        System.out.println("CheckTables: " + node_id_lo0);
-        System.out.println("CheckTables: " + sg.getSt2().get(node_id_lo0));
-        System.out.println("CheckTables: " + adj_node_id_lo0);
-        System.out.println("CheckTables: " + adj_node_id_host);
-        System.out.println("CheckTables: " + int_oif);
-        System.out.println("CheckTables: " + int_iif);
-        System.out.println("CheckTables: " + adj_name);
-        */
+        Integer adj_id;
+        String connection_name;
+        String node_hostname;
+        String node_ip;
+        String int_name_oif;
+        String int_name_iif;
+        String adj_node_hostname;
+        String adj_node_ip;
 
         try {
             st = connection_db.createStatement();
@@ -47,18 +52,19 @@ public class RDB {
                     "join node n1 on a.adj_node_id = n1.id " +
                     "join interface i0 on a.interface_id_oif=i0.id " +
                     "join interface i1 on a.interface_id_iif=i1.id;");
-
-            if(rs.next()) {
+            while(rs.next()) {
                 retId = rs.getInt(1);
-                if(retId != 0) {
-                    System.out.println("Node id found: " + retId);
-                }
-
-            } else {
-                System.out.println("Node id isn't found in adj table");
-                return retId;
+                adj_id = rs.getInt(1);
+                connection_name = rs.getString(2);
+                node_hostname = rs.getString(3);
+                node_ip = rs.getString(4);
+                int_name_oif = rs.getString(5);
+                int_name_iif = rs.getString(6);
+                adj_node_hostname = rs.getString(7);
+                adj_node_ip = rs.getString(8);
+                System.out.println("Get Graph from db: " + adj_id + " : " + connection_name + " : " + node_hostname + " : " +
+                        node_ip + " : " + int_name_oif + " : " + int_name_iif + " : " + adj_node_hostname + " : " + adj_node_ip);
             }
-
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -71,9 +77,9 @@ public class RDB {
             connection_db = DriverManager.getConnection(db, user_db, password_db);
             st = connection_db.createStatement();
             DSLContext create = DSL.using(connection_db, SQLDialect.POSTGRES);
-            //create.select().from(ADJS).fetch();
         } catch (SQLException e) {
             System.out.println(e);
         }
     }
+
 }

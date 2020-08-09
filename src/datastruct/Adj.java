@@ -56,6 +56,10 @@ public class Adj {
         //}
     }
 
+    Adj(String [] a) throws IOException, SAXException {
+        d = new JuniperMX(a);
+    }
+
     public JuniperMX getJ() { return d; }
 
     public static void main(String [] args) throws IOException, SAXException {
@@ -75,10 +79,15 @@ public class Adj {
             formatter.printHelp(args[0], options);
             System.exit(1);
         }
+        /*
         Adj a = new Adj("10.229.0.0", cmd);
         SymGraph sg = new SymGraph(a);
         new VisualG(a);
-        new WDB(a, sg);
-        //new RDB(a);
+        //new WDB(a, sg);
+        */
+
+        Adj a = null;
+        RDB rdb = new RDB(a);
+        a = new Adj(rdb.getA());
     }
 }

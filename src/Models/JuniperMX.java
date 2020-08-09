@@ -31,6 +31,16 @@ public class JuniperMX {
 
     // rnp
     // hashmap<ip_addr, hashmap<peerName(hostname), nodeparse0>>
+    //  ^
+    //  |
+    //public NodeParse0(String systemName, String ifI, String ifO, String chassisId, String lo0) {
+    //    this.ifI = ifI;
+    //    this.ifO = ifO;
+    //    this.chassisId = chassisId;
+    //    this.systemName = systemName;
+    //    this.lo0 = lo0;
+    //}
+
     Map<String, Map<String, NodeParse0>> rnp = new HashMap<String, Map<String, NodeParse0>>();
     Map<String, Integer> LoopToNodeId = new HashMap<String, Integer>();
     Map<Integer, String> NodeIdToLoop = new HashMap<Integer, String>();
@@ -43,6 +53,10 @@ public class JuniperMX {
     public JuniperMX(String ip_addr, CommandLine a) throws IOException, SAXException {
         d(ip_addr);
         showResult(a);
+    }
+
+    public JuniperMX(String [] a) throws IOException, SAXException {
+
     }
 
     public Map<String, Map<String, NodeParse0>> getRnp() { return rnp; }
