@@ -91,15 +91,6 @@ public class Adj {
         a = new Adj(rdb.getA());
         Map<String, Map<String, NodeParse0>> aa = a.getJ().getRnp();
         SymGraph ssg = new SymGraph(a);
-        for(String sa : aa.keySet()) {
-            System.out.println("SA: " + sa);
-            for(String ssa : aa.get(sa).keySet()) {
-                System.out.println(ssa);
-                System.out.println(aa.get(sa).get(ssa).getLo0());
-                System.out.println(aa.get(sa).get(ssa).getSystemName());
-            }
-            System.out.println();
-        }
         new VisualG(a);
 
     }
