@@ -101,6 +101,6 @@ public class Adj {
             System.out.println();
         }
         new VisualG(a);
-        
+
     }
 }

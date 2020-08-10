@@ -54,7 +54,7 @@ public class RDB {
                     "join node n0 on a.node_id = n0.id " +
                     "join node n1 on a.adj_node_id = n1.id " +
                     "join interface i0 on a.interface_id_oif=i0.id " +
-                    "join interface i1 on a.interface_id_iif=i1.id;");
+                    "join interface i1 on a.interface_id_iif=i1.id where n1.ip != '0.0.0.0';");
             while(rs.next()) {
                 retId = rs.getInt(1);
                 adj_id = rs.getInt(1);
