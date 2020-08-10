@@ -210,8 +210,8 @@ public class WDB {
             int rs;
             st = connection_db.createStatement();
             rs = st.executeUpdate("insert into " +
-                    "node (type_id, hostname, ip) " +
-                    "values (1 , '" + hostname + "' , '"+ ip + "');");
+                    "node (type_id, hostname, ip, id_sg_node) " +
+                    "values (1 , '" + hostname + "' , '" + ip + "', " + sg.getSt().get(ip) + ");");
             //System.out.println("Node id was inserted, node " + hostname + " " + ip + " id is: x " + rs);
             st.closeOnCompletion();
             st.close();

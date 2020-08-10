@@ -55,8 +55,8 @@ public class JuniperMX {
         showResult(a);
     }
 
-    public JuniperMX(String [] a) throws IOException, SAXException {
-
+    public JuniperMX(ArrayList<String> a) throws IOException, SAXException {
+        dd(a);
     }
 
     public Map<String, Map<String, NodeParse0>> getRnp() { return rnp; }
@@ -72,6 +72,47 @@ public class JuniperMX {
                     System.out.println(" " + npp.get(nnp));
                 }
             }
+        }
+    }
+
+    private void dd(ArrayList<String> a) {
+        // rnp
+        // hashmap<ip_addr, hashmap<peerName(hostname), nodeparse0>>
+        //  ^
+        //  |
+        //public NodeParse0(String systemName, String ifI, String ifO, String chassisId, String lo0) {
+        //    this.ifI = ifI;
+        //    this.ifO = ifO;
+        //    this.chassisId = chassisId;
+        //    this.systemName = systemName;
+        //    this.lo0 = lo0;
+        //}
+
+        int i = 0;
+
+
+        for (i = 0; i < a.size() - 1; i++) {
+            String[] ss = a.get(i).split(":");
+            if(rnp.get(ss[1]) == null)
+                rnp.put(ss[1], new HashMap<String, NodeParse0>());
+        }
+
+        for(i = 0; i < a.size() - 1; i++) {
+            String []ss = a.get(i).split(":");
+            if(ss[4] != null || ss[4] != "null") {
+                System.out.println("SS: " + ss[1] + ":" + ss[4] + ":" + ss[3] + ":" + ss[2] + " mac " + ss[5]);
+                NodeParse0 nnp = new NodeParse0(ss[4], ss[3], ss[2], "mac", ss[5]);
+                //!!!!!!!!!!!!!!nnp.setNode();
+                rnp.get(ss[1]).put(ss[4], nnp);
+            }
+        }
+        System.out.println("DD: cnt: " + i);
+
+
+        for (String key : rnp.keySet()) {
+            for (String key2 : rnp.get(key).keySet())
+                System.out.println("key: " + key + " key2: "  + key2  + " : " + rnp.get(key).get(key2));
+
         }
     }
 

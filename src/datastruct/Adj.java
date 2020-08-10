@@ -12,10 +12,8 @@ import edu.princeton.cs.*;
 import datastruct.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
 import org.apache.commons.*;
 
 import org.xml.sax.SAXException;
@@ -56,7 +54,7 @@ public class Adj {
         //}
     }
 
-    Adj(String [] a) throws IOException, SAXException {
+    Adj(ArrayList<String> a) throws IOException, SAXException {
         d = new JuniperMX(a);
     }
 
@@ -79,15 +77,30 @@ public class Adj {
             formatter.printHelp(args[0], options);
             System.exit(1);
         }
+
         /*
         Adj a = new Adj("10.229.0.0", cmd);
         SymGraph sg = new SymGraph(a);
         new VisualG(a);
-        //new WDB(a, sg);
+        new WDB(a, sg);
         */
+
 
         Adj a = null;
         RDB rdb = new RDB(a);
         a = new Adj(rdb.getA());
+        Map<String, Map<String, NodeParse0>> aa = a.getJ().getRnp();
+        SymGraph ssg = new SymGraph(a);
+        for(String sa : aa.keySet()) {
+            System.out.println("SA: " + sa);
+            for(String ssa : aa.get(sa).keySet()) {
+                System.out.println(ssa);
+                System.out.println(aa.get(sa).get(ssa).getLo0());
+                System.out.println(aa.get(sa).get(ssa).getSystemName());
+            }
+            System.out.println();
+        }
+        new VisualG(a);
+        
     }
 }

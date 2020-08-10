@@ -7,6 +7,8 @@ import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by mitya on 7/22/20.
@@ -20,16 +22,17 @@ public class RDB {
     private ResultSet rs = null;
     private Adj adj;
     private SymGraph sg;
-    private String a[];
+    private ArrayList<String> a;
 
     public RDB(Adj adj) {
         this.adj = adj;
         this.sg = sg;
         connDB(db, user_db, password_db);
+        a = new ArrayList<String>();
         CheckTables();
     }
 
-    public String [] getA() {
+    public ArrayList<String> getA() {
         return a;
     }
 
@@ -62,8 +65,9 @@ public class RDB {
                 int_name_iif = rs.getString(6);
                 adj_node_hostname = rs.getString(7);
                 adj_node_ip = rs.getString(8);
-                System.out.println("Get Graph from db: " + adj_id + " : " + connection_name + " : " + node_hostname + " : " +
-                        node_ip + " : " + int_name_oif + " : " + int_name_iif + " : " + adj_node_hostname + " : " + adj_node_ip);
+                //System.out.println("Get Graph from db: " + adj_id + " : " + connection_name + " : " + node_hostname + " : " +
+                        //node_ip + " : " + int_name_oif + " : " + int_name_iif + " : " + adj_node_hostname + " : " + adj_node_ip);
+                a.add(node_hostname + ":" + node_ip + ":" + int_name_oif + ":" + int_name_iif + ":" + adj_node_hostname + ":" + adj_node_ip);
             }
         } catch (SQLException e) {
             System.out.println(e);
