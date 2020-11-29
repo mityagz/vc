@@ -86,13 +86,14 @@ public class Adj {
 
         */
 
+        ///*
         Adj a = null;
         RDB rdb = new RDB(a);
         a = new Adj(rdb.getA());
         Map<String, Map<String, NodeParse0>> aa = a.getJ().getRnp();
         SymGraph ssg = new SymGraph(a);
-        
         new VisualG(a);
+        //*/
 
     }
 }
