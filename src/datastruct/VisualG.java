@@ -13,10 +13,29 @@ public class VisualG {
     int edge_count = 0;
     Graph graph = new SingleGraph("VC");
     Map<String, Map<String, NodeParse0>> rnp;
+    private String styleSheet =
+			"graph {"+
+			"	canvas-color: white;"+
+			"		fill-mode: gradient-radial;"+
+			"		fill-color: white, #EEEEEE;"+
+			"		padding: 60px;"+
+			"	}"+
+			"node {"+
+			"	size-mode: dyn-size;"+
+			"	shape: circle;"+
+			"	size: 20px;"+
+			"	fill-mode: plain;"+
+			"	fill-color: #CCC;"+
+			"	stroke-mode: plain;"+
+			"	stroke-color: black;"+
+			"	stroke-width: 1px;"+
+			"}";
 
     VisualG(Adj adj) {
 
         rnp = adj.getJ().getRnp();
+
+        graph.addAttribute("ui.stylesheet", styleSheet);
 
         for (String h : rnp.keySet()) {
                 Map<String, NodeParse0> npp = rnp.get(h);
