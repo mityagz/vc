@@ -129,7 +129,13 @@ public class JuniperMX {
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-        device.connect();
+
+        try {
+            device.connect();;
+        } catch (NetconfException ne) {
+            System.out.println("Connect to: " + ip_addr);
+        }
+        //device.connect();
         boolean isLocked = device.lockConfig();
         if(!isLocked) {
             System.out.println("Could not lock configuration. Exit now.");
