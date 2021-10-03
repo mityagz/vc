@@ -58,7 +58,7 @@ public class SymGraph {
                 System.out.println(npp.get(nnp));
                 System.out.println(nnp);
                 if((h != null || h != "0.0.0.0") && nnp != null) {
-                    //System.out.println("addEdge: " + h + " : " + st.get(h) + " : "  + st.get(npp.get(nnp).getLo0()));
+                    System.out.println("addEdge: " + h + " : " + st.get(h) + " : "  + st.get(npp.get(nnp).getLo0()));
                     G.addEdge(new NDirectedEdge(st.get(h), st.get(npp.get(nnp).getLo0()), 1, npp.get(nnp).getIfI(), npp.get(nnp).getIfO()));
                 }
             }
