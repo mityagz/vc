@@ -82,7 +82,7 @@ public class Adj {
         Adj a = new Adj("10.229.0.0", cmd);
         SymGraph sg = new SymGraph(a);
         new VisualG(a);
-        new WDB(a, sg);
+        //new WDB(a, sg);
 
         */
 

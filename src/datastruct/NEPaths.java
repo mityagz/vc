@@ -58,7 +58,8 @@ public class NEPaths {
                 weight += Double.valueOf(sum);
                 path = temp + " -> " + v + "; " + weight;
                 //nPath += " " + v + " from:" + de.from() + " to: " + de.to() + " ifOut:" + de.ifOut() + " ifIn:" + de.ifIn();
-                nPath += " " + de.from() + ":ifOut:" + de.ifOut() + " " + de.to() + ":ifIn:" + de.ifIn();
+                //nPath += " " + de.from() + ":ifOut:" + de.ifOut() + " " + de.to() + ":ifIn:" + de.ifIn();
+                nPath += " " + de.from() + ":ifOut:" + de.ifIn() + " " + de.to() + ":ifIn:" + de.ifOut();
                 //StdOut.println(nPath);
             }
 
